@@ -1,6 +1,8 @@
-﻿namespace batamon
+﻿using System.Diagnostics;
+
+namespace batamon
 {
-    public class Batamon
+    public class Batamon1
     {
         public static void Main()
         {

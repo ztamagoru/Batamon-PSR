@@ -52,7 +52,8 @@ namespace batamon
     
         public static int batamon(List<int> hechicera, List<int> rival)
         {
-            // Si 
+            // En el caso de que se esté testeando desde el TDD, las siguientes líneas
+            // verifican que la cantidad de niveles entre los dos bandos sean iguales.
 
             if (hechicera.Count != rival.Count)
                 throw new Exception("Cantidad de niveles diferentes entre los monstruos de la hechicera y del rival.");
@@ -68,28 +69,30 @@ namespace batamon
             
             int result = 0;
 
-            // Ordeno las listas de los niveles por orden ascendiente y descendiente.
+            // Ordeno la lista de niveles de los monstruos en forma ascendente y descendente
 
             hechicera.Sort();
 
             rival.Sort();
+            rival.Reverse();
 
-            foreach (var n in hechicera)
-                Debug.Write(n "");
-
-            Debug.WriteLine("");
-            foreach (var n in rival)
-                Debug.Write(n);
-
-//            rival.Reverse();
-
-            // En el caso de que el nivel del monstruo de la hechicera sea igual o mayor al nivel del
-            // monstruo del rival, la hechicera suma un punto. Al terminar, devuelve el resultado.
+            // En el siguiente for, el aplicativo va fijándose por cada monstruo de la
+            // hechicera si es que hay un rival de menor o igual nivel, si es así, sube
+            // el puntaje de la hechicera y descarta al monstruo enemigo del listado.
+            // En caso contrario, sigue buscando con el siguiente monstruo de la hechicera
+            // hasta ya haber pasado por todos.
 
             for (int i = 0; i < hechicera.Count; i++)
             {
-                if (hechicera[i] >= rival[i])
-                    result++;
+                for (int j = 0; j < rival.Count; j++)
+                {
+                    if (hechicera[i] >= rival[j])
+                    {
+                        result++;
+                        rival.RemoveAt(j);
+                        break;
+                    }
+                }
             }
 
             return result;
